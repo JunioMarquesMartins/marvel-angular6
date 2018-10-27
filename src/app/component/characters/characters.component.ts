@@ -11,7 +11,7 @@ export class CharactersComponent implements OnInit {
   charactersList:any[]=[];
 
   constructor( private marvel:MarvelService) {
-    this.marvel.getCharacters(200, 10).subscribe((data:any)=>{
+    this.marvel.getCharacters(0, 20).subscribe((data:any)=>{
         this.charactersList = data.data.results;
         console.log(this.charactersList);
     })

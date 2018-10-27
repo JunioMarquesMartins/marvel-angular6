@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.wrapper {
+    margin: 20px;
+}
+.wrapper .card {
+    transition: all .3s .3s ease;
+    cursor: pointer;
+}
+.wrapper .card:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 0px 9px 2px #0006;
+}
+.wrapper .card .card-text .btn {
+    transition: all .3s .3s ease;
+    opacity: 0;
+}
+.wrapper .card:hover .card-text .btn {
+    opacity: 1;
+}

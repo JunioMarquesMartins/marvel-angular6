@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 // Services
 import { MarvelService } from "./service/marvel.service";
 import { CharactersComponent } from './component/characters/characters.component';
+import { MarvelListComponent } from './component/shared/marvel-list/marvel-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CharactersComponent
+    CharactersComponent,
+    MarvelListComponent
   ],
   imports: [
     BrowserModule,
