@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { MarvelService } from "./service/marvel.service";
 import { CharactersComponent } from './component/characters/characters.component';
 import { MarvelListComponent } from './component/shared/marvel-list/marvel-list.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharactersComponent,
-    MarvelListComponent
+    MarvelListComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
