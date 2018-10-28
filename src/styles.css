@@ -1,5 +1,5 @@
 .wrapper {
-    margin: 20px;
+    margin: 100px 20px;
 }
 .wrapper .card {
     transition: all .3s .3s ease;
@@ -15,4 +15,12 @@
 }
 .wrapper .card:hover .card-text .btn {
     opacity: 1;
+}
+.nav-brand_text {
+    padding: 5px 6px 9px;
+    background-color: #595959;
+    margin-left: -1px;
+    font-weight: bold;
+    color: #8f8b8b;
+    text-shadow: 2px 0px 1px #281f1fa6;
 }
