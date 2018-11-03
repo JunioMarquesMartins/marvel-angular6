@@ -9,20 +9,34 @@ import { MarvelService } from "../../service/marvel.service";
 export class CharactersComponent implements OnInit {
 
   charactersList:any[]=[];
-  list:any[]=[];
-  characterData:any[]=[];
+  total:number;
+
+  offset:number = 0;
+  count:number = 20;
+  currentPage:number = 1;
 
   constructor( private marvel:MarvelService) {
-    this.marvel.getCharacters(0, 20).subscribe((data:any)=>{
+    this.getCharacters(this.offset, this.count);
+  }
+
+  pageChange(event) {
+    console.log(event);
+    let offset = event*10;
+    this.currentPage = event;
+    this.getCharacters(offset, this.count);
+  }
+
+  getCharacters(offset, count) {
+    this.marvel.getCharacters(offset, count).subscribe((data:any)=>{
         this.charactersList = data.data.results;
-        this.list = this.charactersList;
+        this.total = data.data.total*2;
         this.deleteNotImageFound(this.charactersList);
     })
   }
 
   deleteNotImageFound(charactersList:any) {
     
-    for(var i=0; i<=charactersList.length; i++) {
+    for(var i=0; i<=charactersList.length-1; i++) {
       let url = charactersList[i].thumbnail.path;
       let urlArray = url.split('/');
       let urlPop = urlArray.pop();

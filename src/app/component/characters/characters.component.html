@@ -1,1 +1,10 @@
 <app-marvel-list [dataList]="charactersList"></app-marvel-list>
+<!-- TODO export Paginator to component -->
+<div class="text-center">
+    <ul>
+        <li style="list-style: none;"
+            *ngFor="let item of charactersList | paginate: { itemsPerPage: count, currentPage: currentPage, totalItems: total-2}"> 
+        </li>
+    </ul>
+    <pagination-controls maxSize="12" (pageChange)="pageChange($event)"></pagination-controls>
+</div>

@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 // Importar Rutas
 import { ROUTES } from './app.routes';
 
@@ -22,10 +25,13 @@ import { CharacterInfoComponent } from './component/character-info/character-inf
     MarvelListComponent,
     NavbarComponent,
     CharacterInfoComponent
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    InfiniteScrollModule,
+    NgxPaginationModule,
     RouterModule.forRoot(ROUTES, { useHash: true } )
   ],
   providers: [

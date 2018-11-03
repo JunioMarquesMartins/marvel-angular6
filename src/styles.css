@@ -24,3 +24,8 @@
     color: #8f8b8b;
     text-shadow: 2px 0px 1px #281f1fa6;
 }
+
+.search-results {
+    height: 20rem;
+    overflow: scroll;
+}
