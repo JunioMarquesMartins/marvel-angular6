@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <app-button
+    [totalList]="totalView"
+    [textInfo]="textInfoBar"
+    (toggleEnable)="toggleEnabledComics($event)">
+  </app-button>
+  <app-marvel-list [dataList]="comicsList"></app-marvel-list>
+  <!-- TODO export Paginator to component -->
+  <div class="text-center">
+      <ul>
+          <li style="list-style: none;"
+              *ngFor="let item of comicsList | paginate: { itemsPerPage: count, currentPage: currentPage, totalItems: total-2}"> 
+          </li>
+      </ul>
+      <pagination-controls maxSize="12" (pageChange)="pageChange($event)"></pagination-controls>
+  </div>
+</div>

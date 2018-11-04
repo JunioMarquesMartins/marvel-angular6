@@ -1,0 +1,18 @@
+<div class="row text-center mt-2 mb-4 pb-2 info-bar">
+    <div class="col-sm-5">
+      <span>{{ textInfo.infoTitle }}</span>
+      <button
+        type="button"
+        class="btn btn-toggle active"
+        data-toggle="button"
+        aria-pressed="true"
+        (click)="toggleEnableEmit($event)"
+        autocomplete="off">
+        <div class="handle"></div>
+      </button>
+    </div>
+    <div class="col-sm-7">
+      {{ textInfo.totalTitle }} 
+      <span class="badge badge-dark">{{ totalList }}</span>
+    </div>
+</div>

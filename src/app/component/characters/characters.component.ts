@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MarvelService } from "../../service/marvel.service";
+import { DataNotImageService } from "../../service/data-not-image.service";
 
 @Component({
   selector: 'app-characters',
@@ -10,19 +11,26 @@ export class CharactersComponent implements OnInit {
 
   charactersList:any[]=[];
   total:number;
+  totalView:number;
 
   offset:number = 0;
   count:number = 20;
   currentPage:number = 1;
 
-  constructor( private marvel:MarvelService) {
+  isEnabled: boolean = true;
+
+  textInfoBar = {
+    infoTitle: 'Hide Characters without images',
+    totalTitle: 'Total Characters'
+  };
+
+  constructor( private marvel:MarvelService, private dataNotImage:DataNotImageService) {
     this.getCharacters(this.offset, this.count);
   }
 
   pageChange(event) {
-    console.log(event);
-    let offset = event*10;
     this.currentPage = event;
+    let offset = this.currentPage*10;
     this.getCharacters(offset, this.count);
   }
 
@@ -30,32 +38,14 @@ export class CharactersComponent implements OnInit {
     this.marvel.getCharacters(offset, count).subscribe((data:any)=>{
         this.charactersList = data.data.results;
         this.total = data.data.total*2;
-        this.deleteNotImageFound(this.charactersList);
+        this.totalView = data.data.total;
+        this.isEnabled ? this.charactersList = this.dataNotImage.deleteNotImageFound(this.charactersList) : console.log('false');  
     })
   }
 
-  deleteNotImageFound(charactersList:any) {
-    
-    for(var i=0; i<=charactersList.length-1; i++) {
-      let url = charactersList[i].thumbnail.path;
-      let urlArray = url.split('/');
-      let urlPop = urlArray.pop();
-      if(urlPop  === 'image_not_available'){
-        this.charactersList.splice(i,1);
-        i --;
-      }
-    }
-
-    // charactersList.forEach((element, index) => {
-    //   let list = index;
-    //   let url = element.thumbnail.path;
-    //   let urlArray = url.split('/');
-    //   let urlPop = urlArray.pop();
-    //   if(urlPop  === 'image_not_available'){
-    //     this.charactersList.splice(list,1);
-    //     list = ;
-    //   }
-    // });
+  toggleEnabledCharacters(event){
+    this.isEnabled = !this.isEnabled;
+    this.pageChange(this.currentPage);
   }
 
   ngOnInit() {

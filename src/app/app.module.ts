@@ -12,11 +12,14 @@ import { ROUTES } from './app.routes';
 
 // Services
 import { MarvelService } from "./service/marvel.service";
+import { DataNotImageService } from "./service/data-not-image.service";
 // Components
 import { CharactersComponent } from './component/characters/characters.component';
 import { MarvelListComponent } from './component/shared/marvel-list/marvel-list.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { CharacterInfoComponent } from './component/character-info/character-info.component';
+import { ButtonComponent } from './component/shared/button/button.component';
+import { ComicsComponent } from './component/comics/comics.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +27,9 @@ import { CharacterInfoComponent } from './component/character-info/character-inf
     CharactersComponent,
     MarvelListComponent,
     NavbarComponent,
-    CharacterInfoComponent
-    
+    CharacterInfoComponent,
+    ButtonComponent,
+    ComicsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ import { CharacterInfoComponent } from './component/character-info/character-inf
     RouterModule.forRoot(ROUTES, { useHash: true } )
   ],
   providers: [
-    MarvelService
+    MarvelService,
+    DataNotImageService
   ],
   bootstrap: [AppComponent]
 })
