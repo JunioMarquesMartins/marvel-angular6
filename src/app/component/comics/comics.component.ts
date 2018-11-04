@@ -13,11 +13,14 @@ export class ComicsComponent implements OnInit {
   total:number;
   totalView:number;
 
+  comicLink:string = 'comic-info'
+
   offset:number = 0;
   count:number = 20;
   currentPage:number = 1;
 
   imagesIsEnabled: boolean = true;
+  isLoading:boolean = true;
 
   textInfoBar = {
     infoTitle: 'Hide Comics without images',
@@ -35,7 +38,9 @@ export class ComicsComponent implements OnInit {
   }
 
   getComics(offset, count) {
+    this.isLoading = true;
     this.marvel.getComics(offset, count).subscribe((data:any)=>{
+        this.isLoading = false;
         this.comicsList = data.data.results;
         this.total = data.data.total*2;
         this.totalView = data.data.total;

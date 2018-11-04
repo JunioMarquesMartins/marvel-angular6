@@ -9,11 +9,12 @@ import { Router } from "@angular/router";
 export class MarvelListComponent implements OnInit {
 
   @Input() dataList: any [] = [];
+  @Input() pageLink: string;
 
   constructor(private router: Router) { }
 
-  getMoreInfo(id:number) {
-    this.router.navigate([ 'character-info', id ])
+  getMoreInfo(pageLink:string, id:number) {
+    this.router.navigate([ pageLink, id ])
   }
 
   ngOnInit() {

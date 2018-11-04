@@ -13,11 +13,14 @@ export class CharactersComponent implements OnInit {
   total:number;
   totalView:number;
 
+  characterLink:string = 'character-info';
+
   offset:number = 0;
   count:number = 20;
   currentPage:number = 1;
 
   isEnabled: boolean = true;
+  isLoading:boolean = true;
 
   textInfoBar = {
     infoTitle: 'Hide Characters without images',
@@ -35,7 +38,9 @@ export class CharactersComponent implements OnInit {
   }
 
   getCharacters(offset, count) {
+    this.isLoading = true;
     this.marvel.getCharacters(offset, count).subscribe((data:any)=>{
+        this.isLoading = false;
         this.charactersList = data.data.results;
         this.total = data.data.total*2;
         this.totalView = data.data.total;

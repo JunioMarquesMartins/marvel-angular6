@@ -1,10 +1,10 @@
 <div class="card-columns">
-    <div class="card" *ngFor="let list of dataList" (click)="getMoreInfo(list.id)">
+    <div class="card bg-whitetext-white" *ngFor="let list of dataList" (click)="getMoreInfo(pageLink, list.id)">
         <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
         <div class="card-body">
             <h5 *ngIf="list.name" class="card-title">{{ list.name }}</h5>
             <h5 *ngIf="list.title" class="card-title">{{ list.title }}</h5>
-            <p class="card-text">{{ list.description }}</p>
+            <!-- <p *ngIf="list.name" class="card-text">{{ list.description }}</p> -->
             <p class="card-text clearfix">
                 <small class="text-muted">© 2018 MARVEL</small>
                 <a href="#" class="btn btn-primary float-right">More Info</a>

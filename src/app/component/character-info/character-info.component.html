@@ -1,15 +1,15 @@
-<div style="margin-top:100px;" class="wrapper">
-  <div class="card-columns">
-      <div class="card">
-          <img class="card-img-top" src="{{characterData.thumbnail.path+'.'+characterData.thumbnail.extension}}" alt="image-{{characterData.name}}">
-          <div class="card-body">
-              <h5 class="card-title">{{ characterData.name }}</h5>
-              <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
-              <p class="card-text clearfix">
-                  <small class="text-muted">© 2018 MARVEL</small>
-                  <a href="#" class="btn btn-primary float-right">More Info</a>
-              </p>
-          </div>
-      </div>
-  </div>
+<!-- Todo change to new component -->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="card-img" [src]="dataImage" alt="{{ characterData.title }}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ characterData.name }}</h5>
+                <p class="card-text">{{ characterData.description }}</p>
+                <p class="card-text"></p>
+            </div>
+        </div>
+    </div>
 </div>

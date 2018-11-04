@@ -24,6 +24,10 @@ export class MarvelService {
     let comimcsUrl:string = `https://gateway.marvel.com/v1/public/comics?apikey=71827f4b4a448fb6c993a2ff4d38c198&offset=${offsetNumber}&limit=${limitNumber}`;
     return this.http.get(comimcsUrl);
   }
+  getComicInfo(id) {
+    let comicInfo:string = `https://gateway.marvel.com/v1/public/comics?apikey=71827f4b4a448fb6c993a2ff4d38c198&id=${id}`;
+    return this.http.get(comicInfo);
+  }
 
 
 }

@@ -20,6 +20,10 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { CharacterInfoComponent } from './component/character-info/character-info.component';
 import { ButtonComponent } from './component/shared/button/button.component';
 import { ComicsComponent } from './component/comics/comics.component';
+import { LoadingComponent } from './component/shared/loading/loading.component';
+import { ComicInfoComponent } from './component/comic-info/comic-info.component';
+import { HomeComponent } from './component/home/home.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { ComicsComponent } from './component/comics/comics.component';
     NavbarComponent,
     CharacterInfoComponent,
     ButtonComponent,
-    ComicsComponent
+    ComicsComponent,
+    LoadingComponent,
+    ComicInfoComponent,
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

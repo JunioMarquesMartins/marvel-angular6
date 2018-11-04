@@ -1,10 +1,11 @@
+<app-loading *ngIf="isLoading"></app-loading>
 <div class="wrapper">
   <app-button
     [totalList]="totalView"
     [textInfo]="textInfoBar"
     (toggleEnable)="toggleEnabledComics($event)">
   </app-button>
-  <app-marvel-list [dataList]="comicsList"></app-marvel-list>
+  <app-marvel-list [dataList]="comicsList" [pageLink]="comicLink"></app-marvel-list>
   <!-- TODO export Paginator to component -->
   <div class="text-center">
       <ul>
