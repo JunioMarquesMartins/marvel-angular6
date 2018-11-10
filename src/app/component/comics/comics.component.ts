@@ -20,6 +20,7 @@ export class ComicsComponent implements OnInit {
   currentPage:number = 1;
 
   imagesIsEnabled: boolean = true;
+  isScroll: boolean = true;
   isLoading:boolean = true;
 
   textInfoBar = {
@@ -29,6 +30,13 @@ export class ComicsComponent implements OnInit {
 
   constructor(private marvel:MarvelService, private dataNotImage:DataNotImageService) {
     this.getComics(this.offset, this.count);
+  }
+
+  onScrollDown() {
+    if(this.isScroll){
+      this.offset = this.offset + 20;
+      this.getComics(this.offset, this.count);
+    }
   }
 
   pageChange(event) {
@@ -41,7 +49,9 @@ export class ComicsComponent implements OnInit {
     this.isLoading = true;
     this.marvel.getComics(offset, count).subscribe((data:any)=>{
         this.isLoading = false;
-        this.comicsList = data.data.results;
+        let results = data.data.results;
+
+        this.isScroll ? this.comicsList = this.comicsList.concat(results) : this.comicsList = results;
         this.total = data.data.total*2;
         this.totalView = data.data.total;
         this.imagesIsEnabled ? this.comicsList = this.dataNotImage.deleteNotImageFound(this.comicsList) : console.log('false');  
@@ -51,6 +61,21 @@ export class ComicsComponent implements OnInit {
   toggleEnabledComics(event){
     this.imagesIsEnabled = !this.imagesIsEnabled;
     this.pageChange(this.currentPage);
+  }
+  toggleEnabledScrol(event){
+    this.isScroll = !this.isScroll;
+    console.log(this.isScroll);
+  }
+
+  onActivate(event) {
+    let scrollToTop = window.setInterval(() => {
+        let pos = window.pageYOffset;
+        if (pos > 0) {
+            window.scrollTo(0, pos - 20); // how far to scroll on each step
+        } else {
+            window.clearInterval(scrollToTop);
+        }
+    }, 0);
   }
 
   ngOnInit() {

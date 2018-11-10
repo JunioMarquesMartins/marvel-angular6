@@ -1,4 +1,5 @@
 <!-- Todo change to new component -->
+<app-loading *ngIf="isLoading"></app-loading>
 <div class="wrapper">
     <div class="row">
         <div class="col-md-4">
@@ -6,9 +7,38 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{ characterData.name }}</h5>
-                <p class="card-text">{{ characterData.description }}</p>
+                <h1 *ngIf="characterData[0] && characterData[0].name" class="card-title">{{ characterData[0].name }}</h1>
+                <p *ngIf="characterData[0] && characterData[0].description" class="card-text">{{ characterData[0].description }}</p>
                 <p class="card-text"></p>
+                <div class="col-md-12" *ngIf="characterData[0] && characterData[0].series.items">
+                    <h2>Series</h2>
+                    <span *ngFor="let serie of characterData[0].series.items" class="main-badge badge badge-secondary m-2">{{ serie.name  }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div>
+        <h1 class="card-title">Character Comics</h1>
+    </div>
+    <div class="card-columns">
+        <div class="card bg-whitetext-white" *ngFor="let list of characterData[1]">
+            <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
+            <div class="card-body">
+                <h5 *ngIf="list.title" class="card-title">{{ list.title }}</h5>
+                <p *ngIf="list.description" class="card-text">{{ list.description }}</p>
+                <p class="card-text clearfix">
+                    <small class="text-muted">© 2018 MARVEL</small>
+                    <!-- <a href="#" class="btn btn-primary float-right">More Info</a> -->
+                </p>
+                <p class="card-text clearfix">
+                    <a *ngIf="list.urls[1] && list.urls[1].url"
+                        href="{{list.urls[1].url}}"
+                        target="_black"
+                        class="btn btn-dark float-right">Buy Now</a>
+                </p>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
@@ -24,6 +25,7 @@ import { LoadingComponent } from './component/shared/loading/loading.component';
 import { ComicInfoComponent } from './component/comic-info/comic-info.component';
 import { HomeComponent } from './component/home/home.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { SearchComponent } from './component/search/search.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +39,14 @@ import { FooterComponent } from './component/footer/footer.component';
     LoadingComponent,
     ComicInfoComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     InfiniteScrollModule,
     NgxPaginationModule,
     RouterModule.forRoot(ROUTES, { useHash: true } )

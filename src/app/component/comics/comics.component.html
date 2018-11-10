@@ -3,11 +3,20 @@
   <app-button
     [totalList]="totalView"
     [textInfo]="textInfoBar"
+    (toggleScroll)="toggleEnabledScrol($event)"
     (toggleEnable)="toggleEnabledComics($event)">
   </app-button>
-  <app-marvel-list [dataList]="comicsList" [pageLink]="comicLink"></app-marvel-list>
+
+  <div class="main-container"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollUpDistance]="1.5"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollDown()">
+        <app-marvel-list [dataList]="comicsList" [pageLink]="comicLink"></app-marvel-list>
+  </div>
   <!-- TODO export Paginator to component -->
-  <div class="text-center">
+  <div *ngIf="!isScroll" (click)="onActivate($event)" class="text-center">
       <ul>
           <li style="list-style: none;"
               *ngFor="let item of comicsList | paginate: { itemsPerPage: count, currentPage: currentPage, totalItems: total-2}"> 

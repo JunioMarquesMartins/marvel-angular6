@@ -1,5 +1,5 @@
 .home-container {
-    background: url('../src/assets/images/marvel-bg.png') 0 bottom no-repeat;
+    background: #232528 url('../src/assets/images/marvel-bg.png') 0 bottom no-repeat;
     background-size: 100%;
     background-attachment: fixed;
     height: 100%;
@@ -32,7 +32,7 @@
     text-shadow: -3px 7px 3px #000;
 }
 .wrapper {
-    margin: 100px 20px;
+    margin: 50px 20px;
 }
 .wrapper .card {
     transition: all .3s .3s ease;
@@ -44,7 +44,7 @@
 }
 .wrapper .card .card-text .btn {
     transition: all .3s .3s ease;
-    opacity: 0;
+    /* opacity: 0; */
 }
 .wrapper .card:hover .card-text .btn {
     opacity: 1;
@@ -83,7 +83,7 @@
 /**
 * Button
 **/
-.col-sm-5 .btn-toggle {
+.col-sm-4 .btn-toggle {
     background-color: #d65345;
     margin: 0 4rem;
     padding: 0;
@@ -117,6 +117,14 @@
     right: -4rem;
     opacity: 0.5;
 }
+/* .btn-toggle-scroll:before {
+    content: 'paginator';
+    left: -6.5rem;
+}
+.btn-toggle-scroll::after {
+    content: 'infinit scroll';
+    right: -5.2rem;
+} */
 .btn-toggle > .handle {
     position: absolute;
     top: 0.1875rem;
@@ -181,4 +189,22 @@
     animation-duration: 0.4s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+
+.ngx-pagination {
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+}
+.footer .badge {
+    cursor: pointer;
+}
+.main-badge {
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
 }
