@@ -1,9 +1,24 @@
-<div class="footer bg-dark p-2 position-fixed">
+<div [ngClass]="{ isScrolDown : !detectScrollDown }" class="footer bg-dark p-2 position-fixed">
   <div class="row">
-    <div class="col-md-12">
-      <a class="badge badge-light m-2" href="http://juniomarques.com" target="_blank">Web Personal</a>
-      <a class="badge badge-light m-2" href="https://github.com/JunioMarquesMartins/marvel-angular6" target="_black">GitHub</a>
-      <a class="badge badge-light m-2" (click)="onActivate($event)">^ back to Top</a>
+    <div class="col-md-12 clearfix">
+      <button *ngIf="totalList"
+              type="button"
+              class="btn btn-outline-danger btn-sm btn-count mr-2">
+        View <span class="badge badge-light">{{ offset }}</span>
+      </button>
+      <button *ngIf="totalList" 
+              ype="button"
+              class="btn btn-outline-danger btn-sm btn-count">
+        Total <span class="badge badge-light">{{ totalList }}</span>
+      </button>
+      <div class="float-right box-links">
+          <a *ngIf="links && links.web" class="badge badge-light m-2" href="http://juniomarques.com" target="_blank">Web</a>
+          <a *ngIf="links && links.github" class="badge badge-light m-2" href="https://github.com/JunioMarquesMartins/marvel-angular6" target="_black">GitHub</a>
+          <a *ngIf="links && links.character" class="badge badge-light m-2" routerLink="/characters" >Characters</a>
+          <a *ngIf="links && links.comic" class="badge badge-light m-2" routerLink="/comics" >Comics</a>
+          <a class="badge badge-light m-2 badge-top" (click)="onActivate($event)"><i class="fas fa-angle-up"></i></a>
+      </div>
+      <!-- <a class="badge badge-light m-2 float-right" routerLink="/characters"><i class="fas fa-chevron-left"></i>Back</a>       -->
     </div>
   </div>
 </div>

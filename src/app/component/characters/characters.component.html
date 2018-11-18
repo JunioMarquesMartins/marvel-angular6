@@ -1,18 +1,28 @@
+<app-navbar [detectScrollDown]="scrollDownActive"></app-navbar>
 <app-loading *ngIf="isLoading"></app-loading>
 <div class="wrapper">
     <app-button
         [totalList]="totalView"
         [textInfo]="textInfoBar"
+        [detectScrollDown]="scrollDownActive"
         (toggleScroll)="toggleEnabledScrol($event)"
         (toggleEnable)="toggleEnabledCharacters($event)">
     </app-button>
+    <form routerLink="/search-characters"
+        [ngClass]="{ isScrolDown: scrollDownActive }" class="col-md-12 form-inline fieldSearch position-fixed" novalidate>
+        <input #textSearch
+                class="form-control form-control col-md-12"
+                placeholder="Search characters"
+                aria-label="Search">
+        <a href="javascript:void(0)" class="ico-search position-absolute"><i class="fas fa-search"></i></a>
+    </form>
     
     <div class="main-container"
         infiniteScroll
         [infiniteScrollDistance]="2"
         [infiniteScrollUpDistance]="1.5"
         [infiniteScrollThrottle]="50"
-        (scrolled)="onScrollDown()">
+        (scrolled)="onScrollDownCharacters()">
         <app-marvel-list [dataList]="charactersList" [pageLink]="characterLink"></app-marvel-list>
     </div>
 
@@ -26,3 +36,8 @@
         <pagination-controls maxSize="12" (pageChange)="pageChange($event)"></pagination-controls>
     </div>
 </div>
+<app-footer [offset]="offsetCharacters"
+            [totalList]="totalMissing"
+            [links]="linksCharacter"
+            [detectScrollDown]="scrollDownActive">
+            </app-footer>

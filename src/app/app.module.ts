@@ -26,6 +26,9 @@ import { ComicInfoComponent } from './component/comic-info/comic-info.component'
 import { HomeComponent } from './component/home/home.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { SearchComponent } from './component/search/search.component';
+import { MarvelInfoComponent } from './component/shared/marvel-info/marvel-info.component';
+import { SearchCharactersComponent } from './component/search-characters/search-characters.component';
+import { LinksMarvelComponent } from './component/shared/links-marvel/links-marvel.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { SearchComponent } from './component/search/search.component';
     ComicInfoComponent,
     HomeComponent,
     FooterComponent,
-    SearchComponent
+    SearchComponent,
+    MarvelInfoComponent,
+    SearchCharactersComponent,
+    LinksMarvelComponent
   ],
   imports: [
     BrowserModule,

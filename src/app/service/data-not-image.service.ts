@@ -11,7 +11,6 @@ export class DataNotImageService {
   constructor() { }
 
   deleteNotImageFound(dataList:any) {
-    
     for(var i=0; i<=dataList.length-1; i++) {
       let url = dataList[i].thumbnail.path;
       let urlArray = url.split('/');

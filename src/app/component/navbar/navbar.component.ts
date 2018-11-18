@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MarvelService } from "../../service/marvel.service";
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
@@ -10,22 +8,11 @@ import { Router } from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  forma:FormGroup;
+  @Input() detectScrollDown;
 
-  constructor(private marvel:MarvelService, private router: Router) { }
-
-  onSubmit() {
-    // event.preventDefault();
-    this.router.navigate([ 'search', this.forma.value.queryName ])
-    console.log(this.forma.value.queryName);
-    
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-
-    this.forma = new FormGroup({
-      'queryName': new FormControl('')
-    });
 
   }
 

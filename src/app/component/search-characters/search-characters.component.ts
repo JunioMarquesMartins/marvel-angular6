@@ -4,28 +4,29 @@ import { ActivatedRoute } from "@angular/router";
 import { DataNotImageService } from "../../service/data-not-image.service";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-search-characters',
+  templateUrl: './search-characters.component.html',
+  styleUrls: ['./search-characters.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchCharactersComponent implements OnInit {
 
-  @ViewChild('searchComic') inputEl:ElementRef;
+  @ViewChild('searchCharacters') inputEl:ElementRef;
 
   ngAfterViewInit() {
-        setTimeout(() => this.inputEl.nativeElement.focus());
+    setTimeout(() => this.inputEl.nativeElement.focus());
   }
 
   dataPeople:any[]=[];
-  characterLink:string = 'comic-info';
+  characterLink:string = 'character-info';
   comicsList:any[]=[];
   linksSearch:object = {};
 
-  isLoading:boolean; 
+  isLoading:boolean;  
 
-  constructor(private marvel:MarvelService, private Route:ActivatedRoute, private dataNotImage:DataNotImageService ) {
+  constructor(private marvel:MarvelService, private Route:ActivatedRoute, private dataNotImage:DataNotImageService) {
     this.onActivate(event);
   }
+
 
   initSearch(textSearch) {
 
@@ -33,7 +34,7 @@ export class SearchComponent implements OnInit {
 
     setTimeout(()=>{
       if(textSearch!=='') {
-        this.marvel.comicSearch(textSearch).subscribe((data:any)=>{
+        this.marvel.characterSearch(textSearch).subscribe((data:any)=>{
           this.isLoading = false;
           let searchResult = data.data.results;
           this.comicsList = searchResult;

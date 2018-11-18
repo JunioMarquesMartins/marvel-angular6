@@ -11,6 +11,7 @@ export class ComicInfoComponent implements OnInit {
 
   comicData:any[]=[];
   dataImage:string;
+  linksComic:object = {};
   id;
 
   constructor(private route:ActivatedRoute, private marvel:MarvelService) {
@@ -24,6 +25,12 @@ export class ComicInfoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.linksComic = { 
+      character: 'character',
+      comic: 'comic',
+      web: '',
+      github: ''
+    };
   }
 
 }

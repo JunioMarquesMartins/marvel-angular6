@@ -1,17 +1,24 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="wrapper">
-    <div class="card-columns">
-        <div class="card bg-whitetext-white">
-            <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
-            <div class="card-body">
-                <!-- <h5 *ngIf="list.name" class="card-title">{{ list.name }}</h5>
-                <h5 *ngIf="list.title" class="card-title">{{ list.title }}</h5> -->
-                <!-- <p *ngIf="list.name" class="card-text">{{ list.description }}</p> -->
-                <p class="card-text clearfix">
-                    <small class="text-muted">© 2018 MARVEL</small>
-                    <a href="#" class="btn btn-primary float-right">More Info</a>
-                </p>
+<div id="search" class="wrapper pt-4" style="margin-top: 50px;">
+    <form style="top:0;" routerLink="/search" class="form-inline fieldSearch position-fixed" novalidate>
+        <input #textSearch
+                #searchComic
+                class="form-control form-control col-md-12"
+                (keyup)="initSearch(textSearch.value)"
+                placeholder="Search comics"
+                aria-label="Search">
+        <a routerLink="/comics" class="ico-search position-absolute">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </form>   
+    <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+    <div *ngIf="!comicsList.length">
+        <div>
+            <h3>Search Comics</h3>
+            <div>
+                <img width="100%" src="assets/images/marvel-comics.jpg" alt="">
             </div>
         </div>
     </div>
 </div>
+<app-footer [offset]="offset" [totalList]="totalMissing" [links]="linksSearch"></app-footer>

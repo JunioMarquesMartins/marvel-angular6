@@ -1,0 +1,38 @@
+<div *ngIf="!isInfoPage">
+    <a *ngIf="link.urls[0] && link.urls[0].url && link.format"
+        href="{{link.urls[0].url}}"
+        target="_black"
+        class="badge badge-primary mr-2">{{ link.urls[0].type }}</a>
+    <a *ngIf="link.urls[1] && link.urls[1].url && link.format"
+        href="{{link.urls[1].url}}"
+        target="_black"
+        class="badge badge-success mr-2">{{ link.urls[1].type }}</a>
+    <a *ngIf="link.urls[2] && link.urls[2].url && link.format"
+        href="{{link.urls[2].url}}"
+        target="_black"
+        class="badge badge-warning mr-2">{{ link.urls[2].type }}</a>
+    <a *ngIf="link.urls[3] && link.urls[3].url && link.format"
+        href="{{link.urls[3].url}}"
+        target="_black"
+        class="badge badge-danger mr-2">{{ link.urls[3].type }}</a>
+</div>
+
+
+<div *ngIf="isInfoPage">
+    <a *ngIf="link.urls[0] && link.urls[0].url"
+        href="{{link.urls[0].url}}"
+        target="_black"
+        class="badge badge-primary mr-2">{{ link.urls[0].type }}</a>
+    <a *ngIf="link.urls[1] && link.urls[1].url"
+        href="{{link.urls[1].url}}"
+        target="_black"
+        class="badge badge-success mr-2">{{ link.urls[1].type }}</a>
+    <a *ngIf="link.urls[2] && link.urls[2].url"
+        href="{{link.urls[2].url}}"
+        target="_black"
+        class="badge badge-warning mr-2">{{ link.urls[2].type }}</a>
+    <a *ngIf="link.urls[3] && link.urls[3].url"
+        href="{{link.urls[3].url}}"
+        target="_black"
+        class="badge badge-danger mr-2">{{ link.urls[3].type }}</a>
+</div>

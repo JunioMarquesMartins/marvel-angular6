@@ -1,0 +1,30 @@
+<div class="wrapper dataInfo" *ngIf="dataInfo['id']">
+    <div class="row">
+        <div class="col-md-4">  
+            <div class="card bg-whitetext-white">
+                <img class="card-img-top" src="{{dataInfo.thumbnail.path+'.'+dataInfo.thumbnail.extension}}" alt="image-{{dataInfo.title}}">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title">{{ dataInfo.title }}</h3>
+                <p class="card-text">{{ dataInfo.description }}</p>
+                <div>
+                    <h4>Creators</h4>
+                    <div class="box-list">
+                      <div class="list-content">
+                          <a href="javascript:void(0)"
+                            *ngFor="let creator of dataInfo.creators.items"
+                            class="badge badge-secondary mr-2">
+                            Name: {{ creator.name }} - Role: {{ creator.role }}
+                        </a>
+                      </div>
+                    </div>
+                </div>
+                <p class="card-text clearfix">  
+                    <small class="text-muted">© 2018 MARVEL</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

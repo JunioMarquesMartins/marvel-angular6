@@ -1,3 +1,6 @@
+body {
+    min-height: 800px;
+}
 .home-container {
     background: #232528 url('../src/assets/images/marvel-bg.png') 0 bottom no-repeat;
     background-size: 100%;
@@ -32,7 +35,18 @@
     text-shadow: -3px 7px 3px #000;
 }
 .wrapper {
-    margin: 50px 20px;
+    margin: 100px 20px;
+}
+.info-container {
+    margin-top: 80px;
+}
+.info-container .btn-sm {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dataInfo {
+    margin-top: 0;
 }
 .wrapper .card {
     transition: all .3s .3s ease;
@@ -44,7 +58,6 @@
 }
 .wrapper .card .card-text .btn {
     transition: all .3s .3s ease;
-    /* opacity: 0; */
 }
 .wrapper .card:hover .card-text .btn {
     opacity: 1;
@@ -83,7 +96,7 @@
 /**
 * Button
 **/
-.col-sm-4 .btn-toggle {
+.col-sm-12 .btn-toggle {
     background-color: #d65345;
     margin: 0 4rem;
     padding: 0;
@@ -117,14 +130,6 @@
     right: -4rem;
     opacity: 0.5;
 }
-/* .btn-toggle-scroll:before {
-    content: 'paginator';
-    left: -6.5rem;
-}
-.btn-toggle-scroll::after {
-    content: 'infinit scroll';
-    right: -5.2rem;
-} */
 .btn-toggle > .handle {
     position: absolute;
     top: 0.1875rem;
@@ -167,15 +172,35 @@
 .btn-toggle.active:after {
     opacity: 1;
 }
+
+.wrapper .dropdown .dropdown-toggle {
+    width: 100%;
+    font-size: 13px;
+    border-radius: 0;
+    background-color: #2d3032;
+}
+.wrapper .dropdown-box {
+    left: 0;
+    top: 64px;
+    z-index: 99;
+    font-size: 11px;
+}
+.wrapper .dropdown-box .dropdown-menu {
+    transform: translate3d(0px, 28px, 0px) !important;
+}
+
 /**
 * Loading
 **/
 .loading {
     position: fixed;
-    top: 150px;
+    bottom: 100px;
     left: 50%;
     z-index: 999;
-    margin-left: -60px;
+    margin-left: -24px;
+}
+.loading .fa-sync {
+    font-size: 3rem;
 }
 .animated {
     -webkit-animation-duration: 1s;
@@ -199,12 +224,93 @@
 .footer {
     bottom: 0;
     width: 100%;
+    font-size: 11px;
 }
 .footer .badge {
     cursor: pointer;
+}
+.footer .box-links .badge {
+    font-size: 100%;
+}
+.footer .btn-count {
+    font-size: 11px;
+    margin-top: 5px;
+}
+.footer .box-links .badge-top {
+    padding: 0 10px;
+    font-size: 20px;
+    vertical-align: middle;
 }
 .main-badge {
     overflow: hidden;
     max-width: 200px;
     text-overflow: ellipsis;
+}
+
+.box-list {
+    max-height: 150px;
+    overflow-x: auto;
+}
+.box-list .list-group-item {
+    font-size: 13px;
+    padding: 5px 10px;
+}
+app-navbar .navbar {
+    /* display: none; */
+    transition: .3s .3s ease;
+    top: -9999px;
+}
+.navbar .btn-count span {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+}
+.ico-search {
+    font-size: 20px;
+    /* color: #db5454; */
+    color: #bfbfbf;
+    top: 14px;
+    right: 18px;
+}
+#search .ico-search {
+    top: 14px;
+    left: 18px;
+    right: initial;
+}
+#search .form-control {
+    padding-left: 30px;
+}
+.fieldSearch {
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+}
+.fieldSearch .form-control:focus {
+    color: #495057;
+    background-color: #fdefef;
+    border-color: #db5454;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(252, 242, 242);
+}
+.fieldSearch .form-control:focus ~ .ico-search {
+    color: #db5454;
+}
+.navbar.isScrolDown {
+    top: 0;
+}
+.wrapper .dropdown-box {
+    transition: .3s .3s ease;
+    top: -9999px;
+}
+.dropdown.isScrolDown {
+    top: 64px;
+}
+app-characters .fieldSearch, app-comics .fieldSearch {
+    transition: .3s .3s ease;
+    top: -9999px;
+}
+app-characters .fieldSearch.isScrolDown, app-comics .fieldSearch.isScrolDown {
+    top: 0;
 }

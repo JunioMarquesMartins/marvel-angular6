@@ -1,0 +1,22 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div id="search" class="wrapper pt-4" style="margin-top:50px;">
+    <form style="top:0;" class="form-inline fieldSearch position-fixed" novalidate>
+        <input #textSearch
+                #searchCharacters
+                class="form-control form-control col-md-12"
+                (keyup)="initSearch(textSearch.value)"
+                placeholder="Search characters"
+                aria-label="Search">
+        <a routerLink="/characters" class="ico-search position-absolute">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </form>     
+    <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+    <div *ngIf="!comicsList.length">
+        <h3>Search Characters</h3>
+        <div>
+            <img width="100%" src="assets/images/marvel-characters.jpg" alt="icon-search-characters">
+        </div>
+    </div>
+</div>
+<app-footer [links]="linksSearch"></app-footer>

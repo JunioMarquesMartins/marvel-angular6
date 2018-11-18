@@ -9,6 +9,7 @@ export class ButtonComponent implements OnInit {
 
   @Input() totalList:number;
   @Input() textInfo:Object;
+  @Input() detectScrollDown;
   @Output() toggleEnable: EventEmitter<any> = new EventEmitter();
   @Output() toggleScroll: EventEmitter<any> = new EventEmitter();
 

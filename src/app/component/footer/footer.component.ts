@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,13 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  @Input() offset:number;
+  @Input() totalList:number;
+  @Input() detectScrollDown:number;
+  @Input() links:object = {
+    character: '',
+    comic: '',
+    web: '',
+    github: ''
+  };
+
   constructor() { }
 
   onActivate(event) {
     let scrollToTop = window.setInterval(() => {
         let pos = window.pageYOffset;
         if (pos > 0) {
-            window.scrollTo(0, pos - 20); // how far to scroll on each step
+            window.scrollTo(0, pos - 20);
         } else {
             window.clearInterval(scrollToTop);
         }

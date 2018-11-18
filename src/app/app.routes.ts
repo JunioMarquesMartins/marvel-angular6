@@ -5,13 +5,15 @@ import { CharacterInfoComponent } from "./component/character-info/character-inf
 import { ComicsComponent } from "./component/comics/comics.component";
 import { ComicInfoComponent } from "./component/comic-info/comic-info.component";
 import { SearchComponent } from "./component/search/search.component";
+import { SearchCharactersComponent } from "./component/search-characters/search-characters.component";
 
 
 export const ROUTES: Routes = [
 
     { path: 'home', component: HomeComponent },
     { path: 'characters', component: CharactersComponent },
-    { path: 'search/:query', component: SearchComponent },
+    { path: 'search', component: SearchComponent },
+    { path: 'search-characters', component: SearchCharactersComponent },
     { path: 'character-info/:id', component: CharacterInfoComponent },
     { path: 'comics', component: ComicsComponent },
     { path: 'comic-info/:id', component: ComicInfoComponent },
