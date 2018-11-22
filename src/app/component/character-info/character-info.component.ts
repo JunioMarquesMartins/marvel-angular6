@@ -103,10 +103,10 @@ export class CharacterInfoComponent implements OnInit {
 
   ngOnInit() {
     this.linksCharacter = { 
-      character: 'character',
-      comic: 'comic',
-      web: '',
-      github: ''
+      character: 'characters',
+      comic: 'comics',
+      comicHome: 'comics',
+      characterHome: 'characters'
     };
   }
 

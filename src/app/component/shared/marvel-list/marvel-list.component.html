@@ -1,32 +1,17 @@
 <div class="card-columns">
-    <div class="card bg-whitetext-white" *ngFor="let list of dataList" (click)="getMoreInfo(pageLink, list.id)">
+    <div class="card bg-whitetext-white" *ngFor="let list of dataList">
         <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
         <div class="card-body">
-            <h5 *ngIf="list.name" class="card-title">{{ list.name }}</h5>
-            <h5 *ngIf="list.title" class="card-title">{{ list.title }}</h5>
+            <h5 *ngIf="list.name" class="card-title notranslate">{{ list.name }}</h5>
+            <h5 *ngIf="list.title" class="card-title notranslate">{{ list.title }}</h5>
             <!-- <p *ngIf="list.name" class="card-text">{{ list.description }}</p> -->
-            <p *ngIf="!list.format" class="card-text clearfix">
+            <app-links-marvel [link]='list' [isInfoPage]='false'></app-links-marvel>
+            <p class="card-text clearfix mt-4">
                 <small class="text-muted">© 2018 MARVEL</small>
                 <a href="javascript:void(0)"
-                    class="btn btn-outline-danger float-right">More Info</a>
-            </p>
-            <app-links-marvel [link]="list" [isInfoPage]="false"></app-links-marvel>
-            <!-- <a *ngIf="list.urls[0] && list.urls[0].url && list.format"
-                    href="{{list.urls[0].url}}"
-                    target="_black"
-                    class="badge badge-primary mr-2">{{ list.urls[0].type }}</a>
-            <a *ngIf="list.urls[1] && list.urls[1].url && list.format"
-                    href="{{list.urls[1].url}}"
-                    target="_black"
-                    class="badge badge-success mr-2">{{ list.urls[1].type }}</a>
-            <a *ngIf="list.urls[2] && list.urls[2].url && list.format"
-                    href="{{list.urls[2].url}}"
-                    target="_black"
-                    class="badge badge-warning mr-2">{{ list.urls[2].type }}</a>
-            <a *ngIf="list.urls[3] && list.urls[3].url && list.format"
-                    href="{{list.urls[3].url}}"
-                    target="_black"
-                    class="badge badge-danger mr-2">{{ list.urls[3].type }}</a> -->
+                        (click)="getMoreInfo(pageLink, list.id)"
+                        class="btn btn-outline-danger btn-sm float-right">More Info</a>
+                </p>
         </div>
     </div>
 </div>

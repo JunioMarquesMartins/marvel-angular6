@@ -9,6 +9,8 @@ export class FooterComponent implements OnInit {
 
   @Input() offset:number;
   @Input() totalList:number;
+  @Input() totalResults:number;
+  @Input() countList:number;
   @Input() detectScrollDown:number;
   @Input() links:object = {
     character: '',

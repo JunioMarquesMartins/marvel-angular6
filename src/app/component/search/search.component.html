@@ -1,17 +1,64 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <div id="search" class="wrapper pt-4" style="margin-top: 50px;">
-    <form style="top:0;" routerLink="/search" class="form-inline fieldSearch position-fixed" novalidate>
+    <form style="top:0;" class="form-inline fieldSearch position-fixed" novalidate>
         <input #textSearch
                 #searchComic
                 class="form-control form-control col-md-12"
-                (keyup)="initSearch(textSearch.value)"
-                placeholder="Search comics"
+                (click)="textSearch.value=''"
+                (keyup)="filterItems(textSearch.value); textSearch.value.length>0 ? isActiveSearch=true : isActiveSearch=false;"
+                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true) : ''"
+                placeholder="Search comics: spider, daredevil, hulk, deadpool... "
                 aria-label="Search">
         <a routerLink="/comics" class="ico-search position-absolute">
             <i class="fas fa-chevron-left"></i>
         </a>
-    </form>   
-    <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+        <a href="javascript:void(0)"
+            class="ico-search ico-right position-absolute"
+            (click)="initSearch(textSearch.value, 10, 0, true)">
+            <i class="fas fa-search"></i>
+        </a>
+        <div *ngIf="isActiveSearch" class="position-fixed box-selected">
+            <h5>Suggestions</h5>
+            <ul class="notranslate">
+                <li *ngFor="let list of resultSelect"
+                    (click)="initSearch(list, 10, 0, true); isActiveSearch=false">
+                    <a href="javascript:void(0)">
+                        <img width="100%" src="{{ list.image }}" alt="">
+                        {{ list }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+    <!-- <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <input type="text"
+                placeholder="Search comics: spider, daredevil, hulk, deadpool... "
+                aria-label="Number"
+                (keypress)="$event.keyCode == 13 ? initSearch(myControl.value, 10, 0, true) : ''"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form> -->
+
+    <div id="scroll-seachComic">
+        <div class="main-container"
+            infiniteScroll
+            [infiniteScrollDistance]="1.5"
+            [infiniteScrollThrottle]="300"
+            [infiniteScrollContainer]="scroll-seachComic"
+            (scrolled)="onScrollDownSearchComic()">   
+            <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+        </div>
+    </div>
+    
     <div *ngIf="!comicsList.length">
         <div>
             <h3>Search Comics</h3>
@@ -21,4 +68,7 @@
         </div>
     </div>
 </div>
-<app-footer [offset]="offset" [totalList]="totalMissing" [links]="linksSearch"></app-footer>
+<app-footer [totalResults]='totalComics'
+    [countList]='searchOffset'
+    [links]='linksSearch'>
+</app-footer>

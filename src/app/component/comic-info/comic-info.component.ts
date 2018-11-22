@@ -26,10 +26,10 @@ export class ComicInfoComponent implements OnInit {
 
   ngOnInit() {
     this.linksComic = { 
-      character: 'character',
-      comic: 'comic',
-      web: '',
-      github: ''
+      character: 'characters',
+      comic: 'comics',
+      comicHome: 'comics',
+      characterHome: 'characters'
     };
   }
 

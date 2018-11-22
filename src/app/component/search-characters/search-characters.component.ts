@@ -20,32 +20,46 @@ export class SearchCharactersComponent implements OnInit {
   characterLink:string = 'character-info';
   comicsList:any[]=[];
   linksSearch:object = {};
+  totalMissing:number;
 
-  isLoading:boolean;  
+  searchOffset:number = 0;
+  count:number = 10;
+  currentText:string;
+
+  isLoading:boolean;
+  isKeyup:boolean;
+  totalCharacters: number; 
 
   constructor(private marvel:MarvelService, private Route:ActivatedRoute, private dataNotImage:DataNotImageService) {
     this.onActivate(event);
   }
 
 
-  initSearch(textSearch) {
+  initSearch(textSearch, count, searchOffset, isKeyup) {
 
     this.isLoading = true;
 
-    setTimeout(()=>{
-      if(textSearch!=='') {
-        this.marvel.characterSearch(textSearch).subscribe((data:any)=>{
-          this.isLoading = false;
-          let searchResult = data.data.results;
-          this.comicsList = searchResult;
-          this.dataNotImage.deleteNotImageFound(this.comicsList);
-          this.onActivate(event);
-        })
-      } else {
-        this.isLoading = false;
-      }
-    }, 300);
+    this.isKeyup = isKeyup;
+    this.currentText = textSearch;
+    this.isLoading = true;
 
+    this.marvel.characterSearch(textSearch, count, searchOffset).subscribe((data:any)=>{
+      this.isLoading = false;
+      this.isKeyup ? (this.comicsList = [], searchOffset=0, this.searchOffset = 0, this.onActivate(event) ) : console.log('no keyup');
+      let searchResult = data.data.results;
+      this.totalCharacters = data.data.total;
+      this.totalMissing = this.totalCharacters - this.searchOffset;
+      this.comicsList.length <= 0 ? this.comicsList = searchResult : this.comicsList = this.comicsList.concat(searchResult);
+      this.dataNotImage.deleteNotImageFound(this.comicsList);
+    })
+
+  }
+
+  onScrollDownSearchCharacter() {
+    if(this.comicsList.length>1) {
+      this.searchOffset = this.searchOffset + 10;
+      this.searchOffset < this.totalCharacters ? this.initSearch(this.currentText, this.count, this.searchOffset, false) : this.searchOffset = this.totalCharacters;
+    }
   }
 
   onActivate(event) {
@@ -61,10 +75,10 @@ export class SearchCharactersComponent implements OnInit {
 
   ngOnInit() {
     this.linksSearch = { 
-      character: 'character',
-      comic: 'comic',
-      web: '',
-      github: ''
+      character: 'Character',
+      comic: '',
+      comicHome: '',
+      characterHome: 'Character'
     };
   }
 

@@ -15,6 +15,7 @@ export class ComicsComponent implements OnInit {
   totalMissing:number;
   comicLink:string = 'comic-info'
   offset:number = 0;
+  countComics:number = 0;
   count:number = 20;
   currentPage:number = 1;
   imagesIsEnabled: boolean = true;
@@ -32,14 +33,12 @@ export class ComicsComponent implements OnInit {
   };
 
   constructor(private marvel:MarvelService, private dataNotImage:DataNotImageService, lc: NgZone) {
-    this.getComics(this.offset, this.count);
+    
+    this.offset = 0;
 
-    this.linksComic = { 
-      character: '',
-      comic: '',
-      web: 'web',
-      github: 'github'
-    };
+    this.onActivate(event);
+
+    this.getComics(this.offset, this.count);
 
     window.onscroll = () => {
       let st = window.pageYOffset;
@@ -63,13 +62,6 @@ export class ComicsComponent implements OnInit {
 
   }
 
-  onScrollDown() {
-    if(this.isScroll){
-      this.offset = this.offset + 20;
-      this.getComics(this.offset, this.count);
-    }
-  }
-
   pageChange(event) {
     this.currentPage = event;
     let offset = this.currentPage*10;
@@ -89,6 +81,13 @@ export class ComicsComponent implements OnInit {
         this.totalMissing = this.totalView - this.offset;
         this.imagesIsEnabled ? this.comicsList = this.dataNotImage.deleteNotImageFound(this.comicsList) : console.log('false');  
     })
+  }
+
+  onScrollDown() {
+    if(this.isScroll){
+      this.offset = this.offset + 20;
+      this.offset < this.totalView ? this.getComics(this.offset, this.count) : this.offset = 0;
+    }
   }
 
   toggleEnabledComics(event){
@@ -111,6 +110,12 @@ export class ComicsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.linksComic = { 
+      character: '',
+      comic: 'Comics',
+      characterHome: '',
+      comicHome: ''
+    };
   }
 
 }

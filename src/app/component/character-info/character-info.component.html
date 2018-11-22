@@ -8,7 +8,7 @@
             <!-- TODO move links to component app-links -->
             <h3 *ngIf="characterData[0] && characterData[0].name" class="card-title">{{ characterData[0].name }}</h3>
             <p>
-                <app-links-marvel [link]="characterData[0]" [isInfoPage]="true"></app-links-marvel>
+                <app-links-marvel [link]='characterData[0]' [isInfoPage]='true'></app-links-marvel>
             </p>
             <p *ngIf="characterData[0] && characterData[0].description" class="card-text">{{ characterData[0].description }}</p>
         </div>
@@ -76,8 +76,4 @@
     </div>
 </div>
 
-<app-footer [offset]="offsetCharacters"
-            [totalList]="totalMissing"
-            [links]="linksCharacter"
-            [detectScrollDown]="scrollDownActive">
-        </app-footer>
+<app-footer [links]='linksCharacter'></app-footer>

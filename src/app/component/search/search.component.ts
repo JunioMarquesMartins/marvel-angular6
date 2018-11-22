@@ -1,55 +1,154 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { MarvelService } from "../../service/marvel.service";
-import { ActivatedRoute } from "@angular/router";
-import { DataNotImageService } from "../../service/data-not-image.service";
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { MarvelService } from '../../service/marvel.service';
+import { DataNotImageService } from '../../service/data-not-image.service';
+import { identifierModuleUrl } from '@angular/compiler';
+
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
+
 export class SearchComponent implements OnInit {
 
-  @ViewChild('searchComic') inputEl:ElementRef;
+  @ViewChild('searchComic') inputEl: ElementRef;
 
-  ngAfterViewInit() {
-        setTimeout(() => this.inputEl.nativeElement.focus());
+  dataPeople: any [] = [];
+  characterLink: string;
+  comicsList: any[] = [];
+  linksSearch: object = {};
+  totalMissing: number;
+  isActiveSearch: boolean;
+  // Array local evite call in API Marvel
+  dataSelected = [
+    'Agents of Atlas', 'Alpha Flight', 'Ant-Man', 'Avengers',
+    'Battle', 'Black Bolt', 'Black Panther', 'Blade', 'Ben Reilly', 'Brilliant', 'Brute Force',
+    'Captain America', 'Captain Marvel', 'Civil War',
+    'Doctor Strange', 'Deadpool', 'Daredevil', 'Darth Vader',
+    'Exiles', 'Extermination', 'Elektra',
+    'Fantastic Four', 'Falcon',
+    'Guardians of the Galaxy', 'Generation', 'Ghost Rider',
+    'Hawkeye', 'Hulk',
+    'Infinity Wars', 'Iron Man', 'Iron Fist', 'Iceman',
+    'Jessica Jones', 'Journey Into Mystery',
+    'Kanan', 'karnak', 'kick-ass', 'kingpin', 'Korvac',
+    'Luke Cage', 'Lockjam', 'Loki', 'Lando',
+    'Magneto', 'Marvel', 'Moon Knight', 'Mutant X',
+    'New Mutants', 'Nova', 'Nick Fury',
+    'Old man',
+    'Peter Parker', 'Punisher', 'Powers',
+    'Quasar', 'Quicksilver',
+    'Runaways', 'Rogue', 'Rocket',
+    'Storm', 'Sentry', 'Spider-man',
+    'Star wars', 'Silver surf', 'Savage Wolverine', 'Secret Invasion', 'Secret Empire', 'Secret Avengers', 'Secret Warriors', 'Silk',
+    'Tales of Suspense', 'Terror', 'Thanos', 'Thor',
+    'Uncanny',
+    'Vampire', 'Valkyrie', 'Vault of Spiders', 'Venom', 'Venomized', 'Victor Von Doom', 'Villains', 'Vision',
+    'X-men', 'X-force', 'X-23'
+  ];
+  // TODO array from serve
+  // dataSelected: any[] = [];
+
+  resultSelect: any [] = [];
+  cloneDataSelect: any [] = [];
+
+  searchOffset: number;
+  count: number;
+  currentText: string;
+
+  isLoading: boolean;
+  isKeyup: boolean;
+  totalComics: number;
+
+  constructor(private marvel: MarvelService, private dataNotImage: DataNotImageService, elementRef: ElementRef ) {
+    this.characterLink = 'comic-info';
+    this.searchOffset = 0;
+    this.count = 10;
+    this.isActiveSearch = false;
+    this.onActivate();
   }
 
-  dataPeople:any[]=[];
-  characterLink:string = 'comic-info';
-  comicsList:any[]=[];
-  linksSearch:object = {};
-
-  isLoading:boolean; 
-
-  constructor(private marvel:MarvelService, private Route:ActivatedRoute, private dataNotImage:DataNotImageService ) {
-    this.onActivate(event);
+  // myControl = new FormControl();
+  // options: string[] = ['One', 'Two', 'Three'];
+  // filteredOptions: Observable<string[]>;
+  // myControl = new FormControl();
+  // options: string[] = ['One', 'Two', 'Three'];
+  // TODO array from serve
+  // getComicsList (query: string) {
+  //   setTimeout(() => {
+  //     if (query.length > 0) {
+  //       this.marvel.comicSearchTitleList(query, 10, 0).subscribe(( data: any ) => {
+  //         this.isLoading = false;
+  //         const results = data.data.results;
+  //         this.populateDataSelected(query, results);
+  //       });
+  //     }
+  //   }, 300);
+  // }
+  // populateDataSelected (query, results) {
+  //   this.dataSelected = [];
+  //   results.forEach((element) => {
+  //     const title = element.title;
+  //     const titleSplit = title.split(' ');
+  //     const titleResults = titleSplit[0];
+  //     this.dataSelected.push(titleResults);
+  //     console.log(this.dataSelected);
+  //   });
+  //   setTimeout(() => {
+  //     this.filterItems(query);
+  //   }, 10);
+  // }
+  filterItems = query => {
+    this.isActiveSearch = true;
+    this.cloneDataSelect = this.dataSelected;
+    this.resultSelect = [];
+    this.cloneDataSelect.filter( (el, index) => {
+      if ( el.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+        this.resultSelect.push(el);
+      } else {
+        this.resultSelect.splice(index, 1);
+      }
+    });
   }
 
-  initSearch(textSearch) {
-
+  initSearch(textSearch, count, searchOffset, isKeyup) {
+    // this.isActiveSearch = false;
+    console.log(textSearch);
+    this.isKeyup = isKeyup;
+    this.currentText = textSearch;
     this.isLoading = true;
 
-    setTimeout(()=>{
-      if(textSearch!=='') {
-        this.marvel.comicSearch(textSearch).subscribe((data:any)=>{
-          this.isLoading = false;
-          let searchResult = data.data.results;
-          this.comicsList = searchResult;
-          this.dataNotImage.deleteNotImageFound(this.comicsList);
-          this.onActivate(event);
-        })
-      } else {
-        this.isLoading = false;
-      }
-    }, 300);
+    this.marvel.comicSearch(textSearch, count, searchOffset).subscribe(( data: any ) => {
+      this.isLoading = false;
+      this.isKeyup ? (this.comicsList = [], searchOffset = 0, this.searchOffset = 0, this.onActivate() ) : console.log('no keyup');
+      const searchResult = data.data.results;
+      this.totalComics = data.data.total;
+      this.totalMissing = this.totalComics - this.searchOffset;
+      this.comicsList.length <= 0 ? this.comicsList = searchResult : this.comicsList = this.comicsList.concat(searchResult);
+      this.dataNotImage.deleteNotImageFound(this.comicsList);
+    });
+
+    setTimeout(() => {
+      this.isActiveSearch = false;
+    }, 200);
 
   }
 
-  onActivate(event) {
-    let scrollToTop = window.setInterval(() => {
-        let pos = window.pageYOffset;
+  onScrollDownSearchComic() {
+    if (this.comicsList.length > 1 ) {
+      this.searchOffset = this.searchOffset + 10;
+      (this.searchOffset < this.totalComics && this.searchOffset !== this.totalComics) ?
+      this.initSearch(this.currentText, this.count, this.searchOffset, false) : this.searchOffset = this.totalComics;
+    }
+  }
+
+  onActivate() {
+    const scrollToTop = window.setInterval(() => {
+        const pos = window.pageYOffset;
         if (pos > 0) {
             window.scrollTo(0, pos - 20); // how far to scroll on each step
         } else {
@@ -58,13 +157,27 @@ export class SearchComponent implements OnInit {
     }, 0);
   }
 
-  ngOnInit() {
-    this.linksSearch = { 
-      character: 'character',
-      comic: 'comic',
-      web: '',
-      github: ''
-    };
+  ngAfterViewInit () {
+    setTimeout(() => this.inputEl.nativeElement.focus());
   }
+
+  ngOnInit() {
+    this.linksSearch = {
+      character: '',
+      comic: 'Comics',
+      comicHome: 'Comics',
+      characterHome: ''
+    };
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value))
+    // );
+  }
+
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+
+  //   return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  // }
 
 }

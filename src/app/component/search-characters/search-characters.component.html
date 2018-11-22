@@ -4,14 +4,29 @@
         <input #textSearch
                 #searchCharacters
                 class="form-control form-control col-md-12"
-                (keyup)="initSearch(textSearch.value)"
-                placeholder="Search characters"
+                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true) : return"
+                (click)="textSearch.value=''"
+                placeholder="Search characters: deadpool, hulk, spider, daredevil..."
                 aria-label="Search">
         <a routerLink="/characters" class="ico-search position-absolute">
             <i class="fas fa-chevron-left"></i>
         </a>
-    </form>     
-    <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+        <a href="javascript:void(0)"
+            class="ico-search ico-right position-absolute"
+            (click)="initSearch(textSearch.value, 10, 0, true)">
+            <i class="fas fa-search"></i>
+        </a>
+    </form>
+    <div id="scroll-seachCharacter"
+            infiniteScroll
+            [infiniteScrollDistance]="1.5"
+            [infiniteScrollThrottle]="300"
+            [infiniteScrollContainer]="scroll-seachCharacter"
+            (scrolled)="onScrollDownSearchCharacter()">
+        <div class="main-container">
+            <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
+        </div>
+    </div>     
     <div *ngIf="!comicsList.length">
         <h3>Search Characters</h3>
         <div>
@@ -19,4 +34,7 @@
         </div>
     </div>
 </div>
-<app-footer [links]="linksSearch"></app-footer>
+<app-footer [totalResults]='totalCharacters'
+    [countList]='searchOffset'
+    [links]='linksSearch'>
+</app-footer>

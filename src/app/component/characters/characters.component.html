@@ -36,8 +36,4 @@
         <pagination-controls maxSize="12" (pageChange)="pageChange($event)"></pagination-controls>
     </div>
 </div>
-<app-footer [offset]="offsetCharacters"
-            [totalList]="totalMissing"
-            [links]="linksCharacter"
-            [detectScrollDown]="scrollDownActive">
-            </app-footer>
+<app-footer [totalResults]='totalView' [(countList)]="offsetCharacters" [links]='linksCharacter'></app-footer>
