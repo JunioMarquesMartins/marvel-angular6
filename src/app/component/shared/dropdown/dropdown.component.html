@@ -1,0 +1,16 @@
+<div class="position-fixed box-selected box-selected-page">
+    <div class="mb-2">
+        <h3>Change of page</h3>
+        <span class="mg-2">The page changes are {{pagesView}} in {{pagesView}}</span>
+    </div>
+    <div class="box-scroll-area">
+        <ul class="notranslate">
+            <li *ngFor="let list of pagesList"
+                (click)="goComic(list*pagesView)">
+                <a href="javascript:void(0)">
+                    {{ list * pagesView }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -3,28 +3,39 @@
     <div class="col-md-12 clearfix">
       <button *ngIf="totalResults"
               type="button"
+              (click)="showHideEmmiter()"
               class="btn  btn-outline-secondary btn-sm btn-count notranslate">
-              <span *ngIf="links && links.comic"><small>Load </small><strong>{{ countList +'/'+ totalResults}}</strong><small> Total {{links.comic}}</small></span>
-              <span *ngIf="links && links.character"><small>Load </small><strong>{{ countList +'/'+ totalResults}}</strong><small> Total {{links.character}}</small></span>
+              <span *ngIf="links && links.comic"><small>Change</small><strong>{{ countList +'/'+ totalResults}}</strong><small>Total</small></span>
+              <span *ngIf="links && links.character"><small>Change</small><strong>{{ countList +'/'+ totalResults}}</strong><small>Total</small></span>
       </button>
-      <!-- <button *ngIf="offset" 
-              type="button"
-              class="btn btn-outline-danger btn-sm btn-count mr-2">
-        Total for End <span class="badge badge-light">{{ totalList }}</span>
-      </button>
-      <button *ngIf="offset"
-              type="button"
-              class="btn btn-outline-danger btn-sm btn-count">
-        Total <span class="badge badge-light">{{ offset }}</span>
-      </button> -->
-      <div class="float-right box-links">
-          <a *ngIf="links && links.character && links.characterHome" class="badge badge-light m-2" routerLink="/characters" >
-            <i class="fas fa-chevron-left"></i> Characters
+      <div class="float-right box-links notranslate">
+          <a *ngIf="links && links.comic && !links.characterHome"
+            [ngClass]="{activeLink: links && links.comic && !links.characterHome && links.comicHome}"
+            class="badge badge-light btn-pages position-relative"
+            routerLink="/search">
+            <i class="fas fa-search"></i>
           </a>
-          <a *ngIf="links && links.comic && links.comicHome" class="badge badge-light m-2" routerLink="/comics">
-            <i class="fas fa-chevron-left"></i> Comics
+          <a *ngIf="links && links.character && !links.comicHome"
+            [ngClass]="{activeLink: links && links.character && !links.comicHome && links.characterHome}"
+            class="badge badge-light btn-pages position-relative"
+            routerLink="/search-characters">
+            <i class="fas fa-search"></i>
           </a>
-          <a class="badge badge-light m-2 badge-top" (click)="onActivate($event)"><i class="fas fa-angle-up"></i></a>
+          <a [ngClass]="{activeLink: links && links.character && !links.comicHome && !links.characterHome}"
+            class="badge badge-light btn-pages position-relative"
+            routerLink="/characters">
+            <!-- <span class="badge badge-success position-absolute">Lets Go!</span> -->
+            <!-- <i class="fas fa-chevron-left"></i> Characters -->
+            <img width="100%" src="assets/images/ico-characters.png" alt="icon-characters">
+          </a>
+          <a [ngClass]="{activeLink: links && links.comic && !links.characterHome && !links.comicHome}"
+            class="badge badge-light btn-pages"
+            routerLink="/comics">
+            <!-- <span class="badge badge-success position-absolute">Lets Go!</span> -->
+            <!-- <i class="fas fa-chevron-left"></i> Comics -->
+            <img width="100%" src="assets/images/ico-comics.png" alt="ico-comics">
+          </a>
+          <a class="badge badge-light badge-top" (click)="onActivate($event)"><i class="fas fa-angle-up"></i></a>
       </div>
     </div>
   </div>

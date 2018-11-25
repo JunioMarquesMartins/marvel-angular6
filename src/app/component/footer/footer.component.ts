@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,33 +6,28 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
-  @Input() offset:number;
-  @Input() totalList:number;
-  @Input() totalResults:number;
-  @Input() countList:number;
-  @Input() detectScrollDown:number;
-  @Input() links:object = {
+  @Input() offset: number;
+  @Input() totalList: number;
+  @Input() totalResults: number;
+  @Input() countList: number;
+  @Input() detectScrollDown: number;
+  @Output() togglePages: EventEmitter<any> = new EventEmitter;
+  @Input() links: object = {
     character: '',
     comic: '',
     web: '',
     github: ''
   };
-
-  constructor() { }
-
-  onActivate(event) {
-    let scrollToTop = window.setInterval(() => {
-        let pos = window.pageYOffset;
-        if (pos > 0) {
-            window.scrollTo(0, pos - 20);
-        } else {
-            window.clearInterval(scrollToTop);
-        }
+  constructor() {}
+  showHideEmmiter() {
+    this.togglePages.emit(event);
+  }
+  onActivate() {
+    const scrollToTop = window.setInterval(() => {
+        const pos = window.pageYOffset;
+        (pos > 0) ? window.scrollTo(0, pos - 20) : window.clearInterval(scrollToTop);
     }, 0);
   }
-
   ngOnInit() {
   }
-
 }

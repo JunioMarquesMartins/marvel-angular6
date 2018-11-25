@@ -1,26 +1,21 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { MarvelService } from '../../service/marvel.service';
 import { DataNotImageService } from '../../service/data-not-image.service';
-import { identifierModuleUrl } from '@angular/compiler';
-
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
 
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild('searchComic') inputEl: ElementRef;
 
   dataPeople: any [] = [];
   characterLink: string;
   comicsList: any[] = [];
-  linksSearch: object = {};
+  comicsHomeList: any[] = [];
+  linksSearchComic: object = {};
   totalMissing: number;
   isActiveSearch: boolean;
   // Array local evite call in API Marvel
@@ -50,25 +45,26 @@ export class SearchComponent implements OnInit {
     'Vampire', 'Valkyrie', 'Vault of Spiders', 'Venom', 'Venomized', 'Victor Von Doom', 'Villains', 'Vision',
     'X-men', 'X-force', 'X-23'
   ];
-  // TODO array from serve
+  // Array from serve
   // dataSelected: any[] = [];
-
   resultSelect: any [] = [];
   cloneDataSelect: any [] = [];
-
   searchOffset: number;
   count: number;
   currentText: string;
-
   isLoading: boolean;
   isKeyup: boolean;
   totalComics: number;
+  searchHome: boolean;
 
   constructor(private marvel: MarvelService, private dataNotImage: DataNotImageService, elementRef: ElementRef ) {
+    const query = this.dataSelected[Math.floor(Math.random() * (this.dataSelected.length - 0)) + 0];
+    this.initSearch(query, 5, 0, true, true);
     this.characterLink = 'comic-info';
     this.searchOffset = 0;
     this.count = 10;
     this.isActiveSearch = false;
+    this.searchHome = true;
     this.onActivate();
   }
 
@@ -107,29 +103,28 @@ export class SearchComponent implements OnInit {
     this.cloneDataSelect = this.dataSelected;
     this.resultSelect = [];
     this.cloneDataSelect.filter( (el, index) => {
-      if ( el.toLowerCase().indexOf(query.toLowerCase()) > -1) {
-        this.resultSelect.push(el);
-      } else {
+      (el.toLowerCase().indexOf(query.toLowerCase()) > -1)  ?
+        this.resultSelect.push(el) :
         this.resultSelect.splice(index, 1);
-      }
     });
   }
 
-  initSearch(textSearch, count, searchOffset, isKeyup) {
-    // this.isActiveSearch = false;
-    console.log(textSearch);
+  initSearch(textSearch, count, searchOffset, isKeyup, searchHome) {
     this.isKeyup = isKeyup;
     this.currentText = textSearch;
     this.isLoading = true;
 
     this.marvel.comicSearch(textSearch, count, searchOffset).subscribe(( data: any ) => {
       this.isLoading = false;
-      this.isKeyup ? (this.comicsList = [], searchOffset = 0, this.searchOffset = 0, this.onActivate() ) : console.log('no keyup');
+      this.isKeyup ?
+      (this.comicsList = [], searchOffset = 0, this.searchOffset = 0, this.onActivate() ) : console.log('no keyup');
       const searchResult = data.data.results;
       this.totalComics = data.data.total;
       this.totalMissing = this.totalComics - this.searchOffset;
       this.comicsList.length <= 0 ? this.comicsList = searchResult : this.comicsList = this.comicsList.concat(searchResult);
       this.dataNotImage.deleteNotImageFound(this.comicsList);
+      this.searchHome = searchHome;
+      searchHome ? this.populateComicsHomeList(searchResult) : console.log('NO');
     });
 
     setTimeout(() => {
@@ -137,23 +132,29 @@ export class SearchComponent implements OnInit {
     }, 200);
 
   }
-
+  populateComicsHomeList (results) {
+    results.forEach((element) => {
+      const title = element.title;
+      const titleSplit = title.split(' ');
+      const titleResults = titleSplit[0];
+      this.comicsHomeList.push({
+        title: titleResults,
+        image: `${element.thumbnail.path}.${element.thumbnail.extension}`
+      });
+    });
+  }
   onScrollDownSearchComic() {
     if (this.comicsList.length > 1 ) {
       this.searchOffset = this.searchOffset + 10;
       (this.searchOffset < this.totalComics && this.searchOffset !== this.totalComics) ?
-      this.initSearch(this.currentText, this.count, this.searchOffset, false) : this.searchOffset = this.totalComics;
+      this.initSearch(this.currentText, this.count, this.searchOffset, false, false) :
+      this.searchOffset = this.totalComics;
     }
   }
-
   onActivate() {
     const scrollToTop = window.setInterval(() => {
         const pos = window.pageYOffset;
-        if (pos > 0) {
-            window.scrollTo(0, pos - 20); // how far to scroll on each step
-        } else {
-            window.clearInterval(scrollToTop);
-        }
+        (pos > 0) ?  window.scrollTo(0, pos - 20) : window.clearInterval(scrollToTop);
     }, 0);
   }
 
@@ -162,7 +163,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.linksSearch = {
+    this.linksSearchComic = {
       character: '',
       comic: 'Comics',
       comicHome: 'Comics',

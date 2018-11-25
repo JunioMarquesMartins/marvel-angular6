@@ -4,7 +4,8 @@
         <input #textSearch
                 #searchCharacters
                 class="form-control form-control col-md-12"
-                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true) : return"
+                (keyup)="filterItems(textSearch.value); textSearch.value.length>0 ? isActiveSearch=true : isActiveSearch=false;"
+                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true, false) : return"
                 (click)="textSearch.value=''"
                 placeholder="Search characters: deadpool, hulk, spider, daredevil..."
                 aria-label="Search">
@@ -16,8 +17,25 @@
             (click)="initSearch(textSearch.value, 10, 0, true)">
             <i class="fas fa-search"></i>
         </a>
+        <div *ngIf="isActiveSearch" class="position-fixed box-selected">
+            <div class="mb-2">
+                <h5>Suggestions</h5>
+            </div>
+            <div class="box-scroll-area">
+                <ul class="notranslate">
+                    <li *ngFor="let list of resultSelect"
+                        (click)="initSearch(list, 10, 0, true, false, false); textSearch.value=list; isActiveSearch=false">
+                        <a href="javascript:void(0)">
+                            <img width="100%" src="{{ list.image }}" alt="">
+                            {{ list }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </form>
     <div id="scroll-seachCharacter"
+            *ngIf="comicsList.length && !searchHome"
             infiniteScroll
             [infiniteScrollDistance]="1.5"
             [infiniteScrollThrottle]="300"
@@ -26,13 +44,28 @@
         <div class="main-container">
             <app-marvel-list [dataList]="comicsList" [pageLink]="characterLink"></app-marvel-list>
         </div>
+    </div>
+    <div *ngIf="characterHomeList.length && searchHome">
+        <div class="home-search">
+            <h2>Search Characters</h2>
+            <hr>
+            <!-- <div>
+                <img width="100%" src="assets/images/marvel-comics.jpg" alt="">
+            </div> -->
+            <div class="box-thumbnails">
+                <div class="figure" *ngFor="let list of characterHomeList"
+                    (click)="initSearch(list.name, 10, 0, true, false, false); textSearch.value=list.name">
+                    <img width="100%" src="{{list.image}}" alt="image">
+                </div>
+            </div>
+        </div>
     </div>     
-    <div *ngIf="!comicsList.length">
+    <!-- <div *ngIf="!comicsList.length">
         <h3>Search Characters</h3>
         <div>
             <img width="100%" src="assets/images/marvel-characters.jpg" alt="icon-search-characters">
         </div>
-    </div>
+    </div> -->
 </div>
 <app-footer [totalResults]='totalCharacters'
     [countList]='searchOffset'

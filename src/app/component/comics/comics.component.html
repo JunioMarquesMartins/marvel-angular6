@@ -38,6 +38,12 @@
       <pagination-controls maxSize="12" (pageChange)="pageChange($event)"></pagination-controls>
   </div>
 </div>
+<app-dropdown [pagesList]='pagesScrollList'
+    [pagesView]='totalPagesSelected'
+    *ngIf="isOpenPages"
+    (changePage)="getComics($event, 10, false); updateDataComics($event)">
+</app-dropdown>
 <app-footer [totalResults]='totalView'
+    (togglePages)="showHideSelectedPage()"
     [countList]='offset'
     [links]='linksComic'></app-footer>

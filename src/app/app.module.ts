@@ -41,6 +41,7 @@ import { SearchComponent } from './component/search/search.component';
 import { MarvelInfoComponent } from './component/shared/marvel-info/marvel-info.component';
 import { SearchCharactersComponent } from './component/search-characters/search-characters.component';
 import { LinksMarvelComponent } from './component/shared/links-marvel/links-marvel.component';
+import { DropdownComponent } from './component/shared/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { LinksMarvelComponent } from './component/shared/links-marvel/links-marv
     SearchComponent,
     MarvelInfoComponent,
     SearchCharactersComponent,
-    LinksMarvelComponent
+    LinksMarvelComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,

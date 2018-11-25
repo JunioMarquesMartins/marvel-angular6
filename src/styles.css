@@ -196,13 +196,13 @@ body {
 **/
 .loading {
     position: fixed;
-    bottom: 100px;
+    bottom: 60px;
     left: 50%;
     z-index: 999;
-    margin-left: -24px;
+    margin-left: -16px;
 }
 .loading .fa-sync {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .animated {
     -webkit-animation-duration: 1s;
@@ -232,7 +232,33 @@ body {
     cursor: pointer;
 }
 .footer .box-links .badge {
+    box-shadow: 2px 2px 3px #000;
     font-size: 100%;
+    background: #484848;
+}
+.footer .box-links .badge .fa-search {
+    font-size: 16px;
+    color: #262626;
+    position: relative;
+    top: 4px;
+}
+.footer .btn-pages {
+    border-radius: 50%;
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+}
+.footer .box-links .badge-top {
+    font-size: 100%;
+    background: #484848;
+    width: 30px;
+    height: 30px;
+    vertical-align: top;
+    margin: 0 5px;
+    border-radius: 50%;
+}
+.footer .btn-pages.activeLink {
+    background: #f8f9fa;
 }
 .footer .btn-count {
     font-size: 11px;
@@ -247,15 +273,31 @@ body {
     box-shadow: inset 0px 0px 5px #00000047;
     border-radius: 2px;
     text-shadow: 0 0px 0px #0000006b;
+    margin: 0 4px;
 }
-.footer .box-links .badge-top {
-    padding: 0 10px;
-    font-size: 20px;
-    vertical-align: middle;
+.footer .box-links .fa-angle-up {
+    font-size: 24px;
 }
 .footer .btn-outline-secondary {
     color: #c85e5e;
+    /* border-color: #c85e5e; */
+    border-color: #484848;
+    background-color: #484848;
+    box-shadow: 2px 0px 2px #000000a3;
+}
+.footer .btn-outline-secondary:not(:disabled):not(.disabled):active, .footer .btn-outline-secondary:hover {
     border-color: #c85e5e;
+    color: #c85e5e;
+    border-color: #484848;
+    background-color: #484848;
+    outline: 0;
+    box-shadow: 2px 0px 2px #000000a3;
+}
+.footer .btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+.footer .btn-outline-secondary.focus, .btn-outline-secondary:focus,
+.footer .btn.focus, .btn:focus {
+    box-shadow: 2px 0px 2px #000000a3;
+    outline: 0;
 }
 .main-badge {
     overflow: hidden;
@@ -272,7 +314,6 @@ body {
     padding: 5px 10px;
 }
 app-navbar .navbar {
-    /* display: none; */
     transition: .3s .3s ease;
     top: -9999px;
 }
@@ -283,7 +324,6 @@ app-navbar .navbar {
 }
 .ico-search {
     font-size: 20px;
-    /* color: #db5454; */
     color: #bfbfbf;
     top: 14px;
     right: 18px;
@@ -349,23 +389,27 @@ app-characters .fieldSearch.isScrolDown, app-comics .fieldSearch.isScrolDown {
     top: 50px;
     font-size: 13px;
     height: calc(100% - 102px);
-    overflow-y: scroll;
     box-shadow: -2px 3px 3px #0000009c;
     border-radius: 0 0 5px 5px;
     text-align: center;
+}
+.box-scroll-area {
+    overflow-y: scroll;
+    height: calc(100% - 66px);
 }
 .box-selected ul {
     padding: 0;
 }
 .box-selected li {
-    padding: 3px 10px;
-    width: auto;
     display: inline-block;
     vertical-align: top;
     list-style: none;
-    background: #5d5d5d;
+    background: #bd8685;
     margin: 5px;
     border-radius: 5px;
+    box-shadow: 3px 3px 2px #0000002e;
+    padding: 5px 10px;
+    width: auto;
     /* new style for selected  */
     /* background: white;
     width: 30%;
@@ -376,7 +420,39 @@ app-characters .fieldSearch.isScrolDown, app-comics .fieldSearch.isScrolDown {
     /* new style for selected  */
     /* color: black; */
 }
-
+.box-selected-page {
+    z-index: 9999;
+    top: 0;
+    height: calc(100% - 50px);
+}
+.box-selected-page {
+    background-color:#636363e6;
+}
+.box-selected-page h3, .box-selected-page span {
+    color: #f9f9f9;
+    text-transform: uppercase;
+    text-shadow: 2px 0px 0px #515151;
+}
+.box-selected-page li {
+    width: 45px;
+    font-size: 11px;
+    padding: 5px 0;
+}
 .mat-input-element {
     caret-color: #a43e39 !important;
+}
+/* Home seach comics */
+.home-search {
+    text-align: center;
+    margin-top: 20px;
+}
+.home-search .box-thumbnails .figure {
+    display: inline-block;
+    background: white;
+    box-shadow: 3px 5px 3px #0000006b;
+    margin: 0 8px;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    overflow: hidden;
 }
