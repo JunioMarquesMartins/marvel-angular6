@@ -17,3 +17,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Demo
 
 Marvel Argular 6 [Demo] (http://juniomarques.com/marvel-angular6/#/home)
+![](marvel.gif)
