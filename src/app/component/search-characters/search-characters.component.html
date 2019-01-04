@@ -1,11 +1,11 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div id="search" class="wrapper pt-4" style="margin-top:50px;">
+<div id="search" class="wrapper" style="margin-top:60px;">
     <form style="top:0;" class="form-inline fieldSearch position-fixed" novalidate>
         <input #textSearch
                 #searchCharacters
                 class="form-control form-control col-md-12"
                 (keyup)="filterItems(textSearch.value); textSearch.value.length>0 ? isActiveSearch=true : isActiveSearch=false;"
-                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true, false) : return"
+                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true, false) : ''"
                 (click)="textSearch.value=''"
                 placeholder="Search characters: deadpool, hulk, spider, daredevil..."
                 aria-label="Search">
@@ -47,8 +47,8 @@
     </div>
     <div *ngIf="characterHomeList.length && searchHome">
         <div class="home-search">
-            <h2>Search Characters</h2>
-            <hr>
+            <!-- <h2>Search Characters</h2>
+            <hr> -->
             <!-- <div>
                 <img width="100%" src="assets/images/marvel-comics.jpg" alt="">
             </div> -->

@@ -10,13 +10,14 @@ import { DataNotImageService } from '../../service/data-not-image.service';
 export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild('searchComic') inputEl: ElementRef;
-
   dataPeople: any [] = [];
+  pagesScrollList: any [] = [];
   characterLink: string;
   comicsList: any[] = [];
   comicsHomeList: any[] = [];
   linksSearchComic: object = {};
   totalMissing: number;
+  totalPagesSelected: number;
   isActiveSearch: boolean;
   // Array local evite call in API Marvel
   dataSelected = [
@@ -56,15 +57,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
   isKeyup: boolean;
   totalComics: number;
   searchHome: boolean;
+  isOpenPages: boolean;
 
   constructor(private marvel: MarvelService, private dataNotImage: DataNotImageService, elementRef: ElementRef ) {
     const query = this.dataSelected[Math.floor(Math.random() * (this.dataSelected.length - 0)) + 0];
-    this.initSearch(query, 5, 0, true, true);
+    this.initSearch(query, 5, 0, true, true, false);
     this.characterLink = 'comic-info';
     this.searchOffset = 0;
     this.count = 10;
+    this.totalPagesSelected = 10;
     this.isActiveSearch = false;
     this.searchHome = true;
+    this.isOpenPages = false;
     this.onActivate();
   }
 
@@ -109,15 +113,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
     });
   }
 
-  initSearch(textSearch, count, searchOffset, isKeyup, searchHome) {
+  initSearch(textSearch, count, searchOffset, isKeyup, searchHome, btnDropDown) {
     this.isKeyup = isKeyup;
     this.currentText = textSearch;
     this.isLoading = true;
-
     this.marvel.comicSearch(textSearch, count, searchOffset).subscribe(( data: any ) => {
       this.isLoading = false;
-      this.isKeyup ?
+      (this.isKeyup) ?
       (this.comicsList = [], searchOffset = 0, this.searchOffset = 0, this.onActivate() ) : console.log('no keyup');
+      (btnDropDown) ?
+      (this.comicsList = [], this.onActivate() ) : console.log('no btn DropDown');
       const searchResult = data.data.results;
       this.totalComics = data.data.total;
       this.totalMissing = this.totalComics - this.searchOffset;
@@ -131,6 +136,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
       this.isActiveSearch = false;
     }, 200);
 
+  }
+  changePageInSearch (searchOffset) {
+    const textSearch = this.currentText;
+    this.initSearch(textSearch, 10, searchOffset, false, false, true);
+  }
+  updateDataComics(event) {
+    this.isOpenPages = false;
+    this.searchOffset = event;
   }
   populateComicsHomeList (results) {
     results.forEach((element) => {
@@ -147,7 +160,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     if (this.comicsList.length > 1 ) {
       this.searchOffset = this.searchOffset + 10;
       (this.searchOffset < this.totalComics && this.searchOffset !== this.totalComics) ?
-      this.initSearch(this.currentText, this.count, this.searchOffset, false, false) :
+      this.initSearch(this.currentText, this.count, this.searchOffset, false, false, false) :
       this.searchOffset = this.totalComics;
     }
   }
@@ -173,6 +186,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
     //   startWith(''),
     //   map(value => this._filter(value))
     // );
+  }
+  calcPagesForScroll() {
+    this.pagesScrollList = [];
+    const numberPages = this.totalComics / 10;
+    for ( let i = 0; i <= numberPages; i ++ ) {
+      this.pagesScrollList.push(i);
+    }
+  }
+  showHideSelectedPage() {
+    this.calcPagesForScroll();
+    this.isOpenPages = !this.isOpenPages;
+    console.log(this.pagesScrollList);
   }
 
   // private _filter(value: string): string[] {

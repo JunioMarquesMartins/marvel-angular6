@@ -70,7 +70,7 @@
 <div class="wrapper" id="comics-scroll">
     <div *ngIf="dataInfoList.length > 0">
             <div>
-                <h1 class="card-title">{{ titleDataInfo[0] }} {{ characterData[0].name }}</h1>
+                <h3 class="card-title">{{ titleDataInfo[0] }} {{ characterData[0].name }}</h3>
             </div>
             <app-marvel-list [dataList]="dataInfoList" [pageLink]="characterLink"></app-marvel-list>
     </div>

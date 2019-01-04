@@ -32,7 +32,7 @@ export class ComicsComponent implements OnInit, AfterViewInit {
     totalTitle: 'Total Comics'
   };
   constructor(private marvel: MarvelService, private dataNotImage: DataNotImageService, lc: NgZone) {
-    this.count = 5;
+    this.count = 10;
     this.offset = Math.floor(Math.random() * (43000 - 1)) + 1;
     this.offset > 0 ? this.getComics(this.offset, this.count, false) : console.log(0);
     this.comicLink = 'comic-info';
@@ -88,7 +88,7 @@ export class ComicsComponent implements OnInit, AfterViewInit {
   }
   onScrollDown() {
     if (this.isScroll) {
-      this.offset = this.offset + 5;
+      this.offset = this.offset + 10;
       this.offset < this.totalView ? this.getComics(this.offset, this.count, true) : this.offset = 0;
     }
   }

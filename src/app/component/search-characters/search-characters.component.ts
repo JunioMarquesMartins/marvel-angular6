@@ -75,8 +75,6 @@ export class SearchCharactersComponent implements OnInit, AfterViewInit {
   }
 
   initSearch(textSearch, count, searchOffset, isKeyup, searchHome) {
-
-    this.isLoading = true;
     this.isKeyup = isKeyup;
     this.currentText = textSearch;
     this.isLoading = true;
@@ -93,6 +91,11 @@ export class SearchCharactersComponent implements OnInit, AfterViewInit {
       this.searchHome = searchHome;
       searchHome ? this.populateCharacterHomeList(searchResult) : console.log('NO');
     });
+
+    setTimeout(() => {
+      this.isActiveSearch = false;
+    }, 200);
+
   }
 
   populateCharacterHomeList (results) {

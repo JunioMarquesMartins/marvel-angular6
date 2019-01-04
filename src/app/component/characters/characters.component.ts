@@ -33,7 +33,7 @@ export class CharactersComponent implements OnInit {
   };
   linksCharacter: object = {};
   constructor( private marvel: MarvelService, private dataNotImage: DataNotImageService, lc: NgZone) {
-    this.count = 10;
+    this.count = 20;
     this.offsetCharacters = Math.floor(Math.random() * (1400 - 0)) + 0;
     this.offsetCharacters > 0 ? this.getCharacters(this.offsetCharacters, this.count, false) : console.log(0);
     this.characterLink = 'character-info';

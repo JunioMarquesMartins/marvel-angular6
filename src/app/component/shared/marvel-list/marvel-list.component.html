@@ -1,18 +1,16 @@
-<div class="container">
-    <div class="card-columns">
-        <div class="card bg-whitetext-white" *ngFor="let list of dataList">
-            <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
-            <div class="card-body">
-                <h5 *ngIf="list.name" class="card-title notranslate">{{ list.name }}</h5>
-                <h5 *ngIf="list.title" class="card-title notranslate">{{ list.title }}</h5>
-                <app-links-marvel [link]='list' [isInfoPage]='false'></app-links-marvel>
-                <p class="card-text clearfix mt-4">
-                    <small class="text-muted">© 2018 MARVEL</small>
-                    <a href="javascript:void(0)"
-                            (click)="getMoreInfo(pageLink, list.id)"
-                            class="btn btn-outline-danger btn-sm float-right">More Info</a>
-                    </p>
-            </div>
+<div class="card-columns">
+    <div class="card bg-whitetext-white" *ngFor="let list of dataList">
+        <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
+        <div class="card-body">
+            <h5 *ngIf="list.name" class="card-title notranslate">{{ list.name }}</h5>
+            <h5 *ngIf="list.title" class="card-title notranslate">{{ list.title }}</h5>
+            <app-links-marvel [link]='list' [isInfoPage]='false'></app-links-marvel>
+            <p class="card-text clearfix mt-4">
+                <small class="text-muted">© 2018 MARVEL</small>
+                <a href="javascript:void(0)"
+                        (click)="getMoreInfo(pageLink, list.id)"
+                        class="btn btn-outline-danger btn-sm float-right">More Info</a>
+                </p>
         </div>
     </div>
 </div>

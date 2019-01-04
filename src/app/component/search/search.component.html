@@ -1,12 +1,12 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div id="search" class="wrapper pt-4" style="margin-top: 50px;">
+<div id="search" class="wrapper" style="margin-top: 60px;">
     <form style="top:0;" class="form-inline fieldSearch position-fixed" novalidate>
         <input #textSearch
                 #searchComic
                 class="form-control form-control col-md-12"
                 (click)="textSearch.value=''"
                 (keyup)="filterItems(textSearch.value); textSearch.value.length>0 ? isActiveSearch=true : isActiveSearch=false;"
-                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true, false) : ''"
+                (keypress)="$event.keyCode == 13 ? initSearch(textSearch.value, 10, 0, true, false, false) : ''"
                 placeholder="Search comics: spider, daredevil, hulk, deadpool... "
                 aria-label="Search">
         <a routerLink="/comics" class="ico-search position-absolute">
@@ -14,7 +14,7 @@
         </a>
         <a href="javascript:void(0)"
             class="ico-search ico-right position-absolute"
-            (click)="initSearch(textSearch.value, 10, 0, true, false)">
+            (click)="initSearch(textSearch.value, 10, 0, true, false, false)">
             <i class="fas fa-search"></i>
         </a>
         <div *ngIf="isActiveSearch" class="position-fixed box-selected">
@@ -24,7 +24,7 @@
             <div class="box-scroll-area">
                 <ul class="notranslate">
                     <li *ngFor="let list of resultSelect"
-                        (click)="initSearch(list, 10, 0, true, false); textSearch.value=list; isActiveSearch=false">
+                        (click)="initSearch(list, 10, 0, true, false, false); textSearch.value=list; isActiveSearch=false">
                         <a href="javascript:void(0)">
                             <img width="100%" src="{{ list.image }}" alt="">
                             {{ list }}
@@ -65,20 +65,26 @@
     
     <div *ngIf="comicsHomeList.length && searchHome">
         <div class="home-search">
-            <h2>Search Comics</h2>
-            <hr>
+            <!-- <h2>Search Comics</h2>
+            <hr> -->
             <!-- <div>
                 <img width="100%" src="assets/images/marvel-comics.jpg" alt="">
             </div> -->
             <div class="box-thumbnails">
-                <div class="figure" *ngFor="let list of comicsHomeList" (click)="initSearch(list.title, 10, 0, true, false); textSearch.value=list.title">
+                <div class="figure" *ngFor="let list of comicsHomeList" (click)="initSearch(list.title, 10, 0, true, false, false); textSearch.value=list.title">
                     <img width="100%" src="{{list.image}}" alt="image">
                 </div>
             </div>
         </div>
     </div>
 </div>
+<app-dropdown [pagesList]='pagesScrollList'
+    [pagesView]='totalPagesSelected'
+    *ngIf="isOpenPages"
+    (changePage)="changePageInSearch($event); updateDataComics($event)">
+</app-dropdown>
 <app-footer [totalResults]='totalComics'
+    (togglePages)="showHideSelectedPage()"
     [countList]='searchOffset'
     [links]='linksSearchComic'>
 </app-footer>
