@@ -8,11 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LinksMarvelComponent implements OnInit {
 
   @Input() link;
-  @Input() isInfoPage:boolean;
+  @Input() isInfoPage: boolean;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

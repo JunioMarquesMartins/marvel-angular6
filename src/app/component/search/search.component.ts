@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   totalMissing: number;
   totalPagesSelected: number;
   isActiveSearch: boolean;
-  // Array local evite call in API Marvel
+  // TODO move this Array to a service file
   dataSelected = [
     'Agents of Atlas', 'Alpha Flight', 'Ant-Man', 'Avengers',
     'Battle', 'Black Bolt', 'Black Panther', 'Blade', 'Ben Reilly', 'Brilliant', 'Brute Force',
@@ -46,8 +46,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     'Vampire', 'Valkyrie', 'Vault of Spiders', 'Venom', 'Venomized', 'Victor Von Doom', 'Villains', 'Vision',
     'X-men', 'X-force', 'X-23'
   ];
-  // Array from serve
-  // dataSelected: any[] = [];
   resultSelect: any [] = [];
   cloneDataSelect: any [] = [];
   searchOffset: number;
@@ -72,36 +70,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.onActivate();
   }
 
-  // myControl = new FormControl();
-  // options: string[] = ['One', 'Two', 'Three'];
-  // filteredOptions: Observable<string[]>;
-  // myControl = new FormControl();
-  // options: string[] = ['One', 'Two', 'Three'];
-  // TODO array from serve
-  // getComicsList (query: string) {
-  //   setTimeout(() => {
-  //     if (query.length > 0) {
-  //       this.marvel.comicSearchTitleList(query, 10, 0).subscribe(( data: any ) => {
-  //         this.isLoading = false;
-  //         const results = data.data.results;
-  //         this.populateDataSelected(query, results);
-  //       });
-  //     }
-  //   }, 300);
-  // }
-  // populateDataSelected (query, results) {
-  //   this.dataSelected = [];
-  //   results.forEach((element) => {
-  //     const title = element.title;
-  //     const titleSplit = title.split(' ');
-  //     const titleResults = titleSplit[0];
-  //     this.dataSelected.push(titleResults);
-  //     console.log(this.dataSelected);
-  //   });
-  //   setTimeout(() => {
-  //     this.filterItems(query);
-  //   }, 10);
-  // }
   filterItems = query => {
     this.isActiveSearch = true;
     this.cloneDataSelect = this.dataSelected;
@@ -182,10 +150,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
       comicHome: 'Comics',
       characterHome: ''
     };
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value))
-    // );
   }
   calcPagesForScroll() {
     this.pagesScrollList = [];
@@ -197,13 +161,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   showHideSelectedPage() {
     this.calcPagesForScroll();
     this.isOpenPages = !this.isOpenPages;
-    console.log(this.pagesScrollList);
   }
-
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  // }
 
 }

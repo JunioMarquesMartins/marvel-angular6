@@ -35,23 +35,6 @@
         </div>
     </form>
 
-    <!-- <form class="example-form">
-        <mat-form-field class="example-full-width">
-            <input type="text"
-                placeholder="Search comics: spider, daredevil, hulk, deadpool... "
-                aria-label="Number"
-                (keypress)="$event.keyCode == 13 ? initSearch(myControl.value, 10, 0, true) : ''"
-                matInput
-                [formControl]="myControl"
-                [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </form> -->
-
     <div id="scroll-seachComic" *ngIf="comicsList.length && !searchHome"> 
         <div class="main-container"
             infiniteScroll
@@ -65,13 +48,10 @@
     
     <div *ngIf="comicsHomeList.length && searchHome">
         <div class="home-search">
-            <!-- <h2>Search Comics</h2>
-            <hr> -->
-            <!-- <div>
-                <img width="100%" src="assets/images/marvel-comics.jpg" alt="">
-            </div> -->
             <div class="box-thumbnails">
-                <div class="figure" *ngFor="let list of comicsHomeList" (click)="initSearch(list.title, 10, 0, true, false, false); textSearch.value=list.title">
+                <div class="figure"
+                    *ngFor="let list of comicsHomeList"
+                    (click)="initSearch(list.title, 10, 0, true, false, false); textSearch.value=list.title">
                     <img width="100%" src="{{list.image}}" alt="image">
                 </div>
             </div>

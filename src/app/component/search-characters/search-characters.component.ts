@@ -74,7 +74,7 @@ export class SearchCharactersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  initSearch(textSearch, count, searchOffset, isKeyup, searchHome) {
+  initSearch (textSearch, count, searchOffset, isKeyup, searchHome) {
     this.isKeyup = isKeyup;
     this.currentText = textSearch;
     this.isLoading = true;

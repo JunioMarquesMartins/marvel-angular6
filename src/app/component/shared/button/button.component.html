@@ -1,34 +1,3 @@
-<!-- <div class="row text-center mt-2 mb-4 pb-2 info-bar">
-    <div class="col-sm-4 mt-4">
-      <div>{{ textInfo.infoTitle }}</div>
-      <button
-        type="button"
-        class="btn btn-toggle active"
-        data-toggle="button"
-        aria-pressed="true"
-        (click)="toggleEnableEmit($event)"
-        autocomplete="off">
-        <div class="handle"></div>
-      </button>
-    </div>
-    <div class="col-sm-4 mt-4">
-      <div>Disabled infinit sroll</div>
-      <button
-        type="button"
-        class="btn btn-toggle btn-toggle-scroll active"
-        data-toggle="button"
-        aria-pressed="true"
-        (click)="toggleScrollEmit($event)"
-        autocomplete="off">
-        <div class="handle"></div>
-      </button>
-    </div>
-    <div class="col-sm-4 mt-4">
-      {{ textInfo.totalTitle }} 
-      <span class="badge badge-dark">{{ totalList }}</span>
-    </div>
-</div> -->
-
 <div [ngClass]="{ isScrolDown : !detectScrollDown }" class="dropdown col-md-12 p-0 mb-2 position-fixed dropdown-box">
     <button class="btn btn-secondary dropdown-toggle notranslate"
             type="button"

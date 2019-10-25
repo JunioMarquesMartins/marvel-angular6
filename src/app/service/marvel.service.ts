@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
@@ -14,7 +14,7 @@ export class MarvelService {
 
   constructor(private http: HttpClient) { }
   // Characters GET
-  getCharacters(offsetNumber,limitNumber){
+  getCharacters(offsetNumber, limitNumber) {
     const charactersUrl = `${this.baseUrl}characters?apikey=${this.apiKey}&offset=${offsetNumber}&limit=${limitNumber}`;
     return this.http.get(charactersUrl);
   }
