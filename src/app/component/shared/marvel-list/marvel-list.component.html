@@ -1,6 +1,8 @@
 <div class="card-columns">
     <div class="card bg-whitetext-white" *ngFor="let list of dataList">
-        <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
+        <div class="img-area">
+          <img class="card-img-top" src="{{list.thumbnail.path+'.'+list.thumbnail.extension}}" alt="image-{{list.name}}">
+        </div>
         <div class="card-body">
             <h5 *ngIf="list.name" class="card-title notranslate">{{ list.name }}</h5>
             <h5 *ngIf="list.title" class="card-title notranslate">{{ list.title }}</h5>
